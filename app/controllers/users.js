@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
       age,
       phone
     };
-    
+
     await containerUsers.save(newUser);
     res.send({ data: newUser })
   } catch (e) {
