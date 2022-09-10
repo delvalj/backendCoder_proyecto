@@ -5,12 +5,13 @@ const {containerProducts} = require("../main")
 const getProducts = async (req, res) => {
     try {
       const listAll = await containerProducts.getAll();
-          res.render("main", { productos: listAll });
+          res.render("main", { products: listAll });
         // res.send({ data: listAll })
       } catch (e) {
         httpError(res, e);
     }
 };
+
 
 const getProduct = (req, res) => { };
 
@@ -37,4 +38,4 @@ const updateProduct = (req, res) => {};
 
 const deleteProduct = (req, res) => {};
 
-module.exports = { getProducts, getProduct, createProduct, updateProduct , deleteProduct };
+module.exports = { getProducts, getProduct, createProduct, updateProduct , deleteProduct , getAddProducts};

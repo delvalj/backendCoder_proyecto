@@ -7,7 +7,6 @@ app.use(cors())
 app.use(express.json())
 const {dbConnect} = require('./config/mongo.js')
 
-
 const { engine } = require("express-handlebars");
 
 // Views Engine

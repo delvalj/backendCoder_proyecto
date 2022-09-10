@@ -1,1 +1,52 @@
-<h2>HOLA SOY EL MAIN</h2>
+<div class="container border p-4 shadow-lg p-3 mb-5 bg-body rounded">
+  <h2 class="text-center">PRODUCTOS</h2>
+  <table action="" class="container table table table-hover text-center">
+    <thead>
+      <th >Id</th>
+      <th>Title</th>
+      <th>Thumbnail</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th></th>
+      <th></th>
+
+    </thead>
+    <tbody>
+      {{#each products}}
+        <tr>
+          <td >{{_id}}</td>
+          <td>{{title}}</td>
+          <td><a href="{{thumbnail}}">{{thumbnail}}</a></td>
+          <td>${{price}}</td>
+          <td>{{description}}</td>
+          <td>{{category}}</td>
+
+          <td>
+            <form method="POST" action="/agregarCarrito">
+              <input type="hidden" name="titulo" value="{{titulo}}" />
+              <input type="hidden" name="thumbnail" value="{{thumbnail}}" />
+              <input type="hidden" name="code" value="{{code}}" />
+              <input type="hidden" name="price" value="{{price}}" />
+              <input type="hidden" name="username" value="{{this.user}}" />
+
+              <button type="submit" class="btn btn-success btn-block m-2">
+                Agregar a Carrito</button>
+            </form>
+          </td>
+
+          <td>
+            <form method="POST" action="/eliminoProducto">
+              <input type="hidden" name="id" value="{{_id}}" />
+              <button
+                type="submit"
+                class="btn btn-danger btn-block m-2"
+              >Eliminar de Carrito</button>
+            </form>
+          </td>
+
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

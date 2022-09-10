@@ -4,7 +4,7 @@ const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } =
 
 router.get('/', getProducts );
 router.get('/:id', getProduct);
-router.post('/',createProduct);
+router.post('/', createProduct);
 router.patch('/:id', updateProduct);
 router.delete('/:id', deleteProduct); 
 
