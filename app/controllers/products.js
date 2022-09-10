@@ -5,13 +5,14 @@ const {containerProducts} = require("../main")
 const getProducts = async (req, res) => {
     try {
       const listAll = await containerProducts.getAll();
-        res.send({ data: listAll })
+          res.render("main", { productos: listAll });
+        // res.send({ data: listAll })
       } catch (e) {
         httpError(res, e);
     }
 };
 
-const getProduct = (req, res) => {};
+const getProduct = (req, res) => { };
 
 const createProduct = async (req, res) => {
   try {
