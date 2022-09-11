@@ -1,34 +1,25 @@
 const { httpError } = require("../helpers/handleErrors");
-// const userModel = require("../models/users");
-const {containerProducts} = require("../main")
+
+const { containerProducts } = require("../main");
+const { listAllProducts, createProducts, deleteOneProduct } = require("../services/products");
 
 const getProducts = async (req, res) => {
-    try {
-      const listAll = await containerProducts.getAll();
-          res.render("main", { products: listAll });
-        // res.send({ data: listAll })
-      } catch (e) {
-        httpError(res, e);
-    }
+  try {
+    let products = await listAllProducts();
+    res.render("main", { products: products });
+  } catch (e) {
+    httpError(res, e);
+  }
 };
 
-
-const getProduct = (req, res) => { };
+const getProduct = (req, res) => {};
 
 const createProduct = async (req, res) => {
+    const data = req.body;
   try {
-    const { title, thumbnail, price, description, category  } = req.body;
-
-    const newUser = {
-      title,
-      thumbnail,
-      price,
-      description,
-      category
-    };
-    
-    await containerProducts.save(newUser);
-    res.send({ data: newUser })
+    let newProduct = createProducts(data);
+    await containerProducts.save(newProduct);
+    res.send(newProduct);
   } catch (e) {
     httpError(res, e);
   }
@@ -36,6 +27,23 @@ const createProduct = async (req, res) => {
 
 const updateProduct = (req, res) => {};
 
-const deleteProduct = (req, res) => {};
+const deleteProduct =  async (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  try {
+    await deleteOneProduct(id);
+    // await containerProducts.deleteById(product);
+    res.send('Producto Eliminado')
+  }
+  catch (err) {
+    res.send('FAILEDD');
+  }
+};
 
-module.exports = { getProducts, getProduct, createProduct, updateProduct , deleteProduct , getAddProducts};
+module.exports = {
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};
