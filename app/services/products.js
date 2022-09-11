@@ -8,7 +8,15 @@ const listAllProducts = async () => {
   return products;
 };
 
-const createProducts = (data) => {
+const listOneProduct = async (id) => {
+  let products = await containerProducts.getById(id);
+  if (products === []) {
+    return "Producto con Id ";
+  }
+  return products;
+};
+
+const createProducts = async (data) => {
   const { title, thumbnail, price, description, category } = data;
   const newProduct = {
     title: title,
@@ -17,12 +25,16 @@ const createProducts = (data) => {
     description,
     category,
   };
-  return newProduct;
+  await containerProducts.save(newProduct);
+  return newProduct;  
 };
 
 const deleteOneProduct = async (id) => {
-    
-  await containerProducts.deleteById(id);
+
+  if(!id){
+    res.send('Error en Eliminar producto.')
+  }
+  return await containerProducts.deleteById(id);
 };
 
-module.exports = { listAllProducts, createProducts, deleteOneProduct };
+module.exports = { listAllProducts, createProducts, deleteOneProduct, listOneProduct };

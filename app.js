@@ -1,33 +1,63 @@
-require('dotenv').config()
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const PORT = process.env.PORT || 3000
-app.use(cors())
-app.use(express.json())
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const app = express();
 
-const {dbConnect} = require('./config/mongo.js')
+const PORT = process.env.PORT || 3000;
+const cp = require("cookie-parser");
+
+const session = require("express-session");
+const passport = require("./app/middlewares/passport");
+
+const { dbConnect } = require("./config/mongo.js");
 const { engine } = require("express-handlebars");
+const {DB_URI, SECRET} = process.env;
 
 // Views Engine
 app.engine(
-    "hbs",
-    engine({
-      extname: ".hbs",
-      defaultLayout: "index.hbs",
-    })
-  );
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "index.hbs",
+  })
+);
+
+const MongoStore = require("connect-mongo");
 
 app.set("views", __dirname + "/public/hbs_views");
 app.set("view engine", "hbs");
 
+app.use(cors());
+app.use(express.json());
+app.use(cp());
+
 // Va a buscar en la carpeta PUBLIC si existe el archivo buscado.
 app.use(express.static("public"));
 
-// ROUTER
-app.use('/api', require('./app/routes'))
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: DB_URI,
+      mongoOptions: {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+    }),
+    secret: SECRET,
+    resave: true,
+    // rolling: true,
+    cookie: {
+      maxAge: 90000,
+    },
+    saveUninitialized: true,
+  })
+);
 
-dbConnect()
-app.listen(PORT , () => {
-    console.log('API Running ', PORT)
-})
+app.use(passport.session());
+app.use(passport.initialize());
+app.use("/api", require("./app/routes"));
+
+dbConnect();
+app.listen(PORT, () => {
+  console.log("API Running ", PORT);
+});

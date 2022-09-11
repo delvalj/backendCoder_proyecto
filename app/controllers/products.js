@@ -1,7 +1,5 @@
 const { httpError } = require("../helpers/handleErrors");
-
-const { containerProducts } = require("../main");
-const { listAllProducts, createProducts, deleteOneProduct } = require("../services/products");
+const { listAllProducts, createProducts, deleteOneProduct, listOneProduct } = require("../services/products");
 
 const getProducts = async (req, res) => {
   try {
@@ -12,13 +10,21 @@ const getProducts = async (req, res) => {
   }
 };
 
-const getProduct = (req, res) => {};
+const getProduct = async (req, res) => {
+  const id = req.params.id;
+  try {
+    let product = await listOneProduct(id);
+    res.send(product)
+  }
+  catch (err) {
+    res.send('FAILED IN GET PRODUCT BY ID');
+  }
+};
 
 const createProduct = async (req, res) => {
     const data = req.body;
   try {
-    let newProduct = createProducts(data);
-    await containerProducts.save(newProduct);
+    let newProduct = await createProducts(data);
     res.send(newProduct);
   } catch (e) {
     httpError(res, e);
@@ -29,10 +35,8 @@ const updateProduct = (req, res) => {};
 
 const deleteProduct =  async (req, res) => {
   const id = req.params.id;
-  console.log(id)
   try {
     await deleteOneProduct(id);
-    // await containerProducts.deleteById(product);
     res.send('Producto Eliminado')
   }
   catch (err) {
