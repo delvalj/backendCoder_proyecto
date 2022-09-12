@@ -30,17 +30,9 @@ routerSession.post(
 
 // ----------------------- // LOGIN // ---------------------------//
 
-routerSession.get("/login", getLogin);
+// routerSession.get("/login", getLogin);
 
-routerSession.post(
-  "/login",
-  passport.authenticate("authenticate", {
-    failureRedirect: "/session/errorLogin",
-    failureMessage: true,
-  }),
-  userLogin
-);
 
-routerSession.get("/errorLogin", getErrorLogin);
+
 
 module.exports = routerSession;

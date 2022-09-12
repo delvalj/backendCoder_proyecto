@@ -62,11 +62,13 @@ app.use(passport.initialize());
 const routerProducts = require('./app/routes/products')
 const routerUsers = require('./app/routes/users')
 const routerSession = require('./app/routes/session')
+const routerLogin = require('./app/routes/login')
 
 // app.use("/api", require("./app/routes"));
 app.use("/products", routerProducts);
 app.use("/users", routerUsers);
 app.use("/session", routerSession);
+app.use("/login", routerLogin);
 // app.use("/login", routerLogin);
 // app.use("/register", routerRegister);
 
