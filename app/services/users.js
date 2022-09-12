@@ -3,7 +3,7 @@ const { containerUsers } = require("../main");
 const listAllUsers = async () => {
   let users = await containerUsers.getAll();
   if (users === []) {
-    return "No hay Usuarios";
+    return "No Users Found";
   }
   return users;
 };
@@ -11,7 +11,7 @@ const listAllUsers = async () => {
 const listOneUser = async (id) => {
   let user = await containerUsers.getById(id);
   if (user === []) {
-    return "usuario con Id";
+    return "User's Id:";
   }
   return user;
 };
@@ -19,16 +19,21 @@ const listOneUser = async (id) => {
 
 const createNewUser = async (data) => {
   const { username, email, password, address, age, phone } = data;
-  const newUser = {
-    username,
-    email,
-    password,
-    address,
-    age,
-    phone,
-  };
-  await containerUsers.save(newUser);
-  return newUser;
+
+  if(!data){
+    return "No Information Available."
+  }else {
+    const newUser = {
+      username,
+      email,
+      password,
+      address,
+      age,
+      phone,
+    };
+    await containerUsers.save(newUser);
+    return newUser;
+  }
 };
 
 const deleteOneUser = async (id) => {

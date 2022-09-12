@@ -67,8 +67,8 @@ const routerLogin = require('./app/routes/login')
 // app.use("/api", require("./app/routes"));
 app.use("/products", routerProducts);
 app.use("/users", routerUsers);
-app.use("/session", routerSession);
-app.use("/login", routerLogin);
+app.use("/", routerSession);
+app.use("/", routerLogin);
 // app.use("/login", routerLogin);
 // app.use("/register", routerRegister);
 

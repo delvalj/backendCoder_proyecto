@@ -1,10 +1,15 @@
 const { httpError } = require("../helpers/handleErrors");
-const { listAllUsers, listOneUser,  createNewUser , deleteOneUser} = require("../services/users");
+const {
+  listAllUsers,
+  listOneUser,
+  createNewUser,
+  deleteOneUser,
+} = require("../services/users");
 
 const getUsers = async (req, res) => {
   try {
     let users = await listAllUsers();
-    res.send(users)
+    res.send(users);
     // res.render("register", { users: users });
   } catch (e) {
     httpError(res, e);
@@ -13,41 +18,37 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
   const id = req.params.id;
-  console.log(id)
+  console.log(id);
   try {
     let user = await listOneUser(id);
-    res.send(user)
-  }
-  catch (err) {
-    res.send('FAILEDDD');
+    res.send(user);
+  } catch (err) {
+    res.send("FAILEDDD");
   }
 };
 
 const createUser = async (req, res) => {
   const data = req.body;
-try {
-  let newUser = await createNewUser(data);
-  // res.render(newUser);
-    res.render("main", { users: newUser });
-
-} catch (e) {
-  httpError(res, e);
-}
+  try {
+    await createNewUser(data);
+    res.redirect("http://localhost:8080/login");
+  } catch (e) {
+    httpError(res, e);
+  }
 };
 
 const updateUser = (req, res) => {};
 
-const deleteUser =  async (req, res) => {
+const deleteUser = async (req, res) => {
   const id = req.params.id;
-  console.log(id)
+  console.log(id);
   try {
     await deleteOneUser(id);
     // await containerProducts.deleteById(product);
-    res.send('User deleted')
+    res.send("User deleted");
+  } catch (err) {
+    res.send("FAILEDD");
   }
-  catch (err) {
-    res.send('FAILEDD');
-  }
-}
+};
 
 module.exports = { getUsers, getUser, createUser, updateUser, deleteUser };

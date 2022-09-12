@@ -32,7 +32,6 @@ const createProducts = async (data) => {
 };
 
 const deleteOneProduct = async (id) => {
-
   if(!id){
     res.send('Error en Eliminar producto.')
   }

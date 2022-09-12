@@ -1,26 +1,23 @@
 const { httpError } = require("../helpers/handleErrors");
 
 const getRegister = async (req, res) => {
-    res.render("register", {});
-  //   try {
-  //     // let products = await listAllProducts();
-  //   } catch (e) {
-  //     httpError(res, e);
-  //   }
+    try {
+      res.render("register", {});
+    } catch (e) {
+      httpError(res, e);
+    }
 };
 
 const getErrorRegister = async (req, res) => {
-    res.render("errorRegister", {});
-
-    //   try {
-    //     // let products = await listAllProducts();
-    //   } catch (e) {
-    //     httpError(res, e);
-    //   }
+      try {
+        res.render("errorRegister", {});
+      } catch (e) {
+        httpError(res, e);
+      }
   };
 
 const registerUser = async (req, res) => {
-    res.redirect('http://localhost:8080/session/login');
+    res.redirect('http://localhost:8080/login');
 }
 
 // ----------------------- // LOGIN // ---------------------------// 
@@ -34,13 +31,11 @@ const userLogin = async (req, res) => {
 }
 
 const getErrorLogin = async (req, res) => {
-    res.render("errorLogin", {});
-
-    //   try {
-    //     // let products = await listAllProducts();
-    //   } catch (e) {
-    //     httpError(res, e);
-    //   }
+      try {
+        res.render("errorLogin", {});
+      } catch (e) {
+        httpError(res, e);
+      }
   };
 
 
