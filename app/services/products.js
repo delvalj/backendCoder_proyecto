@@ -18,6 +18,7 @@ const listOneProduct = async (id) => {
 
 const createProducts = async (data) => {
   const { title, thumbnail, price, description, category } = data;
+
   const newProduct = {
     title: title,
     thumbnail,
@@ -25,6 +26,7 @@ const createProducts = async (data) => {
     description,
     category,
   };
+
   await containerProducts.save(newProduct);
   return newProduct;  
 };

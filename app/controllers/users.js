@@ -5,7 +5,7 @@ const getUsers = async (req, res) => {
   try {
     let users = await listAllUsers();
     res.send(users)
-    // res.render("main", { users: users });
+    // res.render("register", { users: users });
   } catch (e) {
     httpError(res, e);
   }
@@ -27,7 +27,9 @@ const createUser = async (req, res) => {
   const data = req.body;
 try {
   let newUser = await createNewUser(data);
-  res.send(newUser);
+  // res.render(newUser);
+    res.render("main", { users: newUser });
+
 } catch (e) {
   httpError(res, e);
 }

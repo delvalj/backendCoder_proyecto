@@ -24,8 +24,8 @@ const getProduct = async (req, res) => {
 const createProduct = async (req, res) => {
     const data = req.body;
   try {
-    let newProduct = await createProducts(data);
-    res.send(newProduct);
+    await createProducts(data);
+    res.redirect('http://localhost:8080/products');
   } catch (e) {
     httpError(res, e);
   }
