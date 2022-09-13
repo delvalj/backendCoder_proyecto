@@ -3,14 +3,19 @@ const { httpError } = require("../helpers/handleErrors");
 const { listAllProducts, createProducts, deleteOneProduct, listOneProduct } = require("../services/products");
 
 const getProducts = async (req, res) => {
- const name = req.session.passport.user;
-  try {
-    let products = await listAllProducts();
-    let user = await
-    res.render("main", { products: products, username: name });
-  } catch (e) {
-    httpError(res, e);
+  const name = req.session.passport.user;
+  if(!name) {
+    res.redirect('http://localhost:8080/login');
   }
+  else {
+    try {
+      let products = await listAllProducts();
+      await res.render("main", { products: products, username: name });
+    } catch (e) {
+      httpError(res, e);
+    }
+  }
+
 };
 
 const getProduct = async (req, res) => {

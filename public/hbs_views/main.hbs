@@ -7,15 +7,10 @@
 
   <br />
   <a href="/logout" class="btn btn-warning my-2">Log Out</a>
-  <a href="/carrito" class="btn btn-dark my-2">Carrito</a>
+  <a href="/cart" class="btn btn-dark my-2">Cart</a>
 
   <h4 class="m-3">Ingrese Su Producto</h4>
-  <form
-    method="POST"
-    action="/products"
-    id="addprod"
-
-  >
+  <form method="POST" action="/products" id="addprod">
     <!-- title input -->
     <div class="form-outline mb-4">
       <input
@@ -105,11 +100,11 @@
 
           <td>
             <form method="POST" action="/agregarCarrito">
-              <input type="hidden" name="titulo" value="{{titulo}}" />
+              <input type="hidden" name="title" value="{{title}}" />
               <input type="hidden" name="thumbnail" value="{{thumbnail}}" />
-              <input type="hidden" name="code" value="{{code}}" />
               <input type="hidden" name="price" value="{{price}}" />
-              <input type="hidden" name="username" value="{{this.user}}" />
+              <input type="hidden" name="description" value="{{description}}" />
+              <input type="hidden" name="category" value="{{category}}" />
 
               <button type="submit" class="btn btn-success btn-block m-2">
                 Agregar a Carrito</button>

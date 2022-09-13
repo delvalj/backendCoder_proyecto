@@ -63,12 +63,14 @@ const routerProducts = require('./app/routes/products')
 const routerUsers = require('./app/routes/users')
 const routerSession = require('./app/routes/session')
 const routerLogin = require('./app/routes/login')
+const routerCart = require('./app/routes/cart')
 
 // app.use("/api", require("./app/routes"));
 app.use("/products", routerProducts);
 app.use("/users", routerUsers);
 app.use("/", routerSession);
 app.use("/", routerLogin);
+app.use("/", routerCart);
 // app.use("/login", routerLogin);
 // app.use("/register", routerRegister);
 
