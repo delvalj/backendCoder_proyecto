@@ -4,7 +4,7 @@
     <h2 class="text-center">CART</h2>
     <a href="/products" class="btn btn-warning my-2">Return to Menu</a>
   </div>
-  <h3 class="my-3"> Carrito de {{this.user}}</h3>
+  <h3 class="my-3"> Carrito de {{this.username}}</h3>
 
   <table class="container table table table-hover">
     <thead>
@@ -18,18 +18,18 @@
     </thead>
 
     <tbody>
-      {{#each showProductos}}
+      {{#each products}}
         <tr>
           <td>{{_id}}</td>
           <td>{{title}}</td>
           <td><a href="{{thumbnail}}">{{thumbnail}}</a></td>
-          <td>{{price}}</td>
-          <td>${{description}}</td>
-          <td>${{category}}</td>
+          <td>${{price}}</td>
+          <td>{{description}}</td>
+          <td>{{category}}</td>
           <td>
-            <form action="/eliminarCarrito" method="POST">
+            <form action="/cart/eliminarCarrito" method="POST">
               <input type="hidden" name="id" value="{{_id}}" />
-              <button type="submit" class="btn btn-warning m-1">Eliminar de Carrito</button>
+              <button type="submit" class="btn btn-warning m-1">Eliminar del Carrito</button>
             </form>
           </td>
         </tr>

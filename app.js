@@ -70,9 +70,8 @@ app.use("/products", routerProducts);
 app.use("/users", routerUsers);
 app.use("/", routerSession);
 app.use("/", routerLogin);
-app.use("/", routerCart);
-// app.use("/login", routerLogin);
-// app.use("/register", routerRegister);
+app.use("/cart", routerCart);
+
 
 dbConnect();
 app.listen(PORT, () => {

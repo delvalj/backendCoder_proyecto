@@ -1,9 +1,10 @@
 const { containerProducts } = require("../main");
 
 const listAllProducts = async () => {
+  
   let products = await containerProducts.getAll();
   if (products === []) {
-    return "Carrito Vacio";
+    return "No hay Produuctos";
   }
   return products;
 };

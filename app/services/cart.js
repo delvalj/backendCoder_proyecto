@@ -19,9 +19,16 @@ const createCarrito = async (data) => {
     category,
   };
 
-  await containerCart.save(newProduct);
+    await containerCart.save(newProduct);
   return newProduct;  
 };
 
+const deleteOneProduct = async (id) => {
+  if(!id){
+    res.send('Error en Eliminar producto.')
+  }
+  return await containerCart.deleteById(id);
+};
 
-module.exports = { listAllProducts, createCarrito };
+
+module.exports = { listAllProducts, createCarrito, deleteOneProduct };
