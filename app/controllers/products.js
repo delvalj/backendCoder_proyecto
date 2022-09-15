@@ -1,63 +1,82 @@
 const { httpError } = require("../helpers/handleErrors");
 
-const {
-  listAllProducts,
-  createProducts,
-  deleteOneProduct,
-  listOneProduct,
-} = require("../services/products");
+const ProductsService = require('../services/products')
 
-const getProducts = async (req, res) => {
-  // esta logica no anda bien, arreglar el redirect porque no me redirect nada
-  // const name = ;
-  if (req.session.passport.user) {
-    try {
-      let products = await listAllProducts();
-      await res.render("main", { products: products, username: req.session.passport.user });
-    } catch (e) {
-      httpError(res, e);
-    }
-  } else {
-    res.redirect("http://localhost:8080/login");
+class ProductsController {
+  constructor() {
+    this.servicio = new ProductsService();
   }
-};
 
-const getProduct = async (req, res) => {
-  const id = req.params.id;
-  try {
-    let product = await listOneProduct(id);
-    res.send(product);
-  } catch (err) {
-    res.send("FAILED IN GET PRODUCT BY ID");
-  }
-};
+  test = (req, res) => {
+    const resultado = this.servicio.test();
+    res.send(resultado);  
+  };
 
-const createProduct = async (req, res) => {
-  const data = req.body;
-  try {
-    await createProducts(data);
-    res.redirect("http://localhost:8080/products");
-  } catch (e) {
-    httpError(res, e);
-  }
-};
+  // getProducts = async (req, res) => {
+  //   if (req.session.passport.user) {
+  //     try {
+  //       let products = await listAllProducts();
+  //       await res.render("main", {
+  //         products: products,
+  //         username: req.session.passport.user,
+  //       });
+  //     } catch (e) {
+  //       httpError(res, e);
+  //     }
+  //   } else {
+  //     res.redirect("http://localhost:8080/login");
+  //   }
+  // };
 
-const updateProduct = (req, res) => {};
+  getProducts = async (req, res) => {
+      try {
+        let products = await this.servicio.listAllProducts();
+        await res.render("main", {
+          products: products,
+        });
+      } catch (e) {
+        httpError(res, e);
+      }
+      // res.redirect("http://localhost:8080/login");
+  };
 
-const deleteProduct = async (req, res) => {
-  const id = req.params.id;
-  try {
-    await deleteOneProduct(id);
-    res.send("Producto Eliminado");
-  } catch (err) {
-    res.send("FAILEDD");
-  }
-};  
+  // getProduct = async (req, res) => {
+  //   const id = req.params.id;
+  //   try {
+  //     let product = await listOneProduct(id);
+  //     res.send(product);
+  //   } catch (err) {
+  //     res.send("FAILED IN GET PRODUCT BY ID");
+  //   }
+  // };
+
+  // createProduct = async (req, res) => {
+  //   const data = req.body;
+  //   try {
+  //     await createProducts(data);
+  //     res.redirect("http://localhost:8080/products");
+  //   } catch (e) {
+  //     httpError(res, e);
+  //   }
+  // };
+
+  // updateProduct = (req, res) => {};
+
+  // deleteProduct = async (req, res) => {
+  //   const id = req.params.id;
+  //   try {
+  //     await deleteOneProduct(id);
+  //     res.send("Producto Eliminado");
+  //   } catch (err) {
+  //     res.send("FAILEDD");
+  //   }
+  };
+
+  
+
+// }
+
 
 module.exports = {
-  getProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
+  ProductsController,
 };
