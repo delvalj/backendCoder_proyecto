@@ -1,50 +1,51 @@
 const { httpError } = require("../helpers/handleErrors");
+const { CartService } = require("../services/cart");
 
-const { listAllProducts, createCarrito } = require("../services/cart");
+const PORT = process.env.PORT || 8080
 
-const getCart = async (req, res) => {
-  if (req.session.passport.user) {
+class CartController {
+  constructor() {
+    this.controller = new CartService();
+  }
+  getCart = async (req, res) => {
     try {
-      let products = await listAllProducts();
-      await res.render("carrito", { products: products, username: req.session.passport.user });
+      let products = await this.controller.listAllProducts();
+      await res.render("carrito", {
+        products: products,
+      });
     } catch (e) {
       httpError(res, e);
     }
-  } else {
-    res.redirect("http://localhost:8080/login");
-  }
+    // res.redirect("http://localhost:8080/login");
+  };
 
-  // // const name = req.session.passport.user;
-  // try {
-  //   let products = await listAllProducts();
-  //   await res.render("carrito", { products: products });
-  // } catch (e) {
-  //   httpError(res, e);
-  // }
-};
+  createCart = async (req, res) => {
+    const data = req.body;
+    try {
+      await this.controller.createCarrito(data);
+      res.redirect(`http://localhost:${PORT}/products`);
+    } catch (e) {
+      httpError(res, e);
+    }
+  };
 
-const createCart = async (req, res) => {
-  const data = req.body;
-  try {
-    await createCarrito(data);
-    res.redirect("http://localhost:8080/products");
-  } catch (e) {
-    httpError(res, e);
-  }
-};
+  deleteCartProduct = async (req, res) => {
+    const id = req.params.id;
+    try {
+      await this.controller.deleteOneProduct(id);
+      res.send("Producto Eliminado");
+    } catch (err) {
+      res.send("FAILEDD");
+    }
+  };
+}
 
-const deleteCartProduct = async (req, res) => {
-  const id = req.params.id;
-  try {
-    await deleteOneProduct(id);
-    res.send("Producto Eliminado");
-  } catch (err) {
-    res.send("FAILEDD");
-  }
-};
+module.exports = { CartController };
 
-module.exports = {
-  getCart,
-  createCart,
-  deleteCartProduct
-};
+// // const name = req.session.passport.user;
+// try {
+//   let products = await listAllProducts();
+//   await res.render("carrito", { products: products });
+// } catch (e) {
+//   httpError(res, e);
+// }

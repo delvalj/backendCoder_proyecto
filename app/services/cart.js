@@ -1,34 +1,38 @@
-const { containerCart } = require("../main");
+const DaoCartMongoose = require("../daos/daoMongooseCart");
 
-const listAllProducts = async () => {
-  let products = await containerCart.getAll();
-  if (products === []) {
-    return "Carrito Vacio";
+class CartService {
+  constructor() {
+    this.dao = new DaoCartMongoose();
   }
-  return products;
-};
-
-const createCarrito = async (data) => {
-  const { title, thumbnail, price, description, category } = data;
-
-  const newProduct = {
-    title: title,
-    thumbnail,
-    price,
-    description,
-    category,
+  listAllProducts = async () => {
+    let products = await this.dao.getAll();
+    if (products === []) {
+      return "Carrito Vacio";
+    }
+    return products;
   };
 
-    await containerCart.save(newProduct);
-  return newProduct;  
-};
+  createCarrito = async (data) => {
+    const { title, thumbnail, price, description, category } = data;
 
-const deleteOneProduct = async (id) => {
-  if(!id){
-    res.send('Error en Eliminar producto.')
-  }
-  return await containerCart.deleteById(id);
-};
+    const newProduct = {
+      title: title,
+      thumbnail,
+      price,
+      description,
+      category,
+    };
 
+    await this.dao.save(newProduct);
+    return newProduct;
+  };
 
-module.exports = { listAllProducts, createCarrito, deleteOneProduct };
+  deleteOneProduct = async (id) => {
+    if (!id) {
+      res.send("Error en Eliminar producto.");
+    }
+    return await this.dao.deleteById(id);
+  };
+}
+
+module.exports = { CartService };

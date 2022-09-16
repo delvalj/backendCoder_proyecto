@@ -1,8 +1,7 @@
-// DAO PRODUCTS
 const mongoose = require("mongoose");
 const { MongooseContainer } = require("../container/ContainerMongoose");
 
-const dtoProductScheme = new mongoose.Schema(
+const dtoCartScheme = new mongoose.Schema(
   {
     title: { type: String, unique: true, required: true },
     thumbnail: { type: String, required: true },
@@ -15,9 +14,9 @@ const dtoProductScheme = new mongoose.Schema(
 
 let instance = null;
 
-class DaoProductsMongoose extends MongooseContainer {
+class DaoCartMongoose extends MongooseContainer {
   constructor(model) {
-    super("products", dtoProductScheme);
+    super("cart", dtoCartScheme);
   }
 
   async save(obj) {
@@ -48,9 +47,9 @@ class DaoProductsMongoose extends MongooseContainer {
   }
 
   getInstance(){
-    if (!instance) instance = new DaoProductsMongoose()
+    if (!instance) instance = new DaoCartMongoose()
     return instance
     }
 }
 
-module.exports = DaoProductsMongoose;
+module.exports = DaoCartMongoose;
