@@ -1,9 +1,7 @@
 const { Router } = require("express");
 const routerProducts = Router();
 
-const {
-  ProductsController,
-} = require("../controllers/products");
+const {ProductsController} = require("../controllers/products");
 
 class RouterProducts {
   constructor() {

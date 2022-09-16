@@ -1,46 +1,51 @@
-const { containerUsers } = require("../main");
+const DaoUsersMongoose = require("../daos/daoMongooseUsers");
 
-const listAllUsers = async () => {
-  let users = await containerUsers.getAll();
-  if (users === []) {
-    return "No Users Found";
+class UsersService {
+  constructor() {
+    this.dao = new DaoUsersMongoose();
   }
-  return users;
-};
 
-const listOneUser = async (id) => {
-  let user = await containerUsers.getById(id);
-  if (user === []) {
-    return "User's Id:";
-  }
-  return user;
-};
+  listAllUsers = async () => {
+    let users = await this.dao.getAll();
+    if (users === []) {
+      return "No Users Found";
+    }
+    return users;
+  };
 
+  listOneUser = async (id) => {
+    let user = await this.dao.getById(id);
+    if (user === []) {
+      return "User's Id:";
+    }
+    return user;
+  };
 
-const createNewUser = async (data) => {
-  const { username, email, password, address, age, phone } = data;
+  createNewUser = async (data) => {
+    const { username, email, password, address, age, phone } = data;
 
-  if(!data){
-    return "No Information Available."
-  }else {
-    const newUser = {
-      username,
-      email,
-      password,
-      address,
-      age,
-      phone,
-    };
-    await containerUsers.save(newUser);
-    return newUser;
-  }
-};
+    if (!data) {
+      return "No Information Available.";
+    } else {
+      const newUser = {
+        username,
+        email,
+        password,
+        address,
+        age,
+        phone,
+      };
+      await this.dao.save(newUser);
+      return newUser;
+    }
+  };
 
-const deleteOneUser = async (id) => {
-  if (!id) {
-    res.send("Error while deleting one user.");
-  }
-  return await containerUsers.deleteById(id);
-};
+  deleteOneUser = async (id) => {
+    if (!id) {
+      res.send("Error while deleting one user.");
+    }
+    return await this.dao.deleteById(id);
+  };
+}
 
-module.exports = { listAllUsers, createNewUser, deleteOneUser, listOneUser };
+module.exports = { UsersService };
