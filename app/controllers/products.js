@@ -1,6 +1,7 @@
 const { httpError } = require("../helpers/handleErrors");
 
 const ProductsService = require("../services/products");
+const PORT = process.env.PORT || 8080;
 
 class ProductsController {
   constructor() {
@@ -40,7 +41,7 @@ class ProductsController {
     // console.log(req.body)
     try {
       await this.servicio.createProducts(data);
-      res.redirect("http://localhost:8080/products");
+      res.redirect(`http://localhost:${PORT}/products`);
     } catch (e) {
       httpError(res, e);
     }

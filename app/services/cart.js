@@ -14,7 +14,6 @@ class CartService {
 
   createCarrito = async (data) => {
     const { title, thumbnail, price, description, category } = data;
-
     const newProduct = {
       title: title,
       thumbnail,

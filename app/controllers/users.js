@@ -1,6 +1,8 @@
 const { httpError } = require("../helpers/handleErrors");
 
 const { UsersService } = require("../services/users");
+const PORT = process.env.PORT || 8080;
+
 
 class UsersController {
   constructor() {
@@ -32,7 +34,7 @@ class UsersController {
     const data = req.body;
     try {
       await this.servicio.createNewUser(data);
-      res.redirect("http://localhost:8080/login");
+      res.redirect(`http://localhost:${PORT}/login`);
     } catch (e) {
       httpError(res, e);
     }
