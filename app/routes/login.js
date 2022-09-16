@@ -1,20 +1,27 @@
-const express = require("express");
-const routerLogin = express.Router();
+const { Router } = require("express");
+const routerLogin = Router();
 const passport = require("../middlewares/passport");
 
-const { getLogin, userLogin, getErrorLogin } = require("../controllers/login");
+const { UsersController } = require("../controllers/login");
 
-routerLogin.get("/login", getLogin);
+class RouterLogin {
+  constructor() {
+    this.controller = new UsersController();
+  }
 
-routerLogin.get("/errorLogin", getErrorLogin, );
+  config() {
+    routerLogin.get("/login", this.controller.getLogin);
+    routerLogin.get("/errorLogin", this.controller.getErrorLogin);
+    routerLogin.post(
+      "/login",
+      passport.authenticate("authenticate", {
+        failureRedirect: "/errorLogin",
+        failureMessage: true,
+      }),
+      this.controller.userLogin
+    );
+    return routerLogin;
+  }
+}
 
-routerLogin.post(
-  "/login",
-  passport.authenticate("authenticate", { 
-    failureRedirect: "/errorLogin",
-    failureMessage: true,
-  }), 
-    userLogin,
-);
-
-module.exports = routerLogin;
+module.exports = RouterLogin;

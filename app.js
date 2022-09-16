@@ -68,21 +68,23 @@ app.use(passport.initialize());
 const RouterProducts = require("./app/routes/products")
 const RouterUsers = require("./app/routes/users");
 const RouterCart = require("./app/routes/cart");
-const routerSession = require("./app/routes/session");
-const routerLogin = require("./app/routes/login");
+const RouterLogin = require("./app/routes/login");
+const RouterRegister = require("./app/routes/session");
+
 
 
 const routerProducts = new RouterProducts();
 const routerUsers = new RouterUsers();
 const routerCart = new RouterCart();
+const routerLogin = new RouterLogin();
+const routerRegister = new RouterRegister();
 
 // app.use("/api", require("./app/routes"));
 app.use("/products", routerProducts.config());
 app.use("/users", routerUsers.config());
 app.use("/cart", routerCart.config());
-
-app.use("/", routerSession);
-app.use("/", routerLogin);
+app.use("/", routerLogin.config());
+app.use("/", routerRegister.config());
 
 dbConnect();
 const server = app.listen(PORT, () => {
