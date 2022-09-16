@@ -17,35 +17,34 @@ class ProductsService {
     return products;
   };
   
-  //  listOneProduct = async (id) => {
-  //   let products = await containerProducts.getById(id);
-  //   if (products === []) {
-  //     return "Producto con Id ";
-  //   }
-  //   return products;
-  // };
+   listOneProduct = async (id) => {
+    let products = await this.dao.getById(id);
+    if (products === []) {
+      return "Producto con Id ";
+    }
+    return products;
+  };
   
-  //  createProducts = async (data) => {
-  //   const { title, thumbnail, price, description, category } = data;
+   createProducts = async (data) => {
+    const { title, thumbnail, price, description, category } = data;
+    const newProduct = {
+      title: title,
+      thumbnail,
+      price,
+      description,
+      category,
+    };
   
-  //   const newProduct = {
-  //     title: title,
-  //     thumbnail,
-  //     price,
-  //     description,
-  //     category,
-  //   };
+    await this.dao.save(newProduct);
+    return newProduct;  
+  };
   
-  //   await containerProducts.save(newProduct);
-  //   return newProduct;  
-  // };
-  
-  // deleteOneProduct = async (id) => {
-  //   if(!id){
-  //     res.send('Error en Eliminar producto.')
-  //   }
-  //   return await containerProducts.deleteById(id);
-  // };
+  deleteOneProduct = async (id) => {
+    if(!id){
+      res.send('Error en Eliminar producto.')
+    }
+    return await this.dao.deleteById(id);
+  };
 }
 
 module.exports = ProductsService;

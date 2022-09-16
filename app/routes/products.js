@@ -15,13 +15,13 @@ class RouterProducts {
 
     routerProducts.get("/test", this.controller.test);
 
-    // routerProducts.get("/:id", getProduct);
+    routerProducts.get("/:id", this.controller.getProduct);
 
-    // routerProducts.post("/", createProduct);
+    routerProducts.post("/", this.controller.createProduct);
 
-    // routerProducts.patch("/:id", updateProduct);
+    routerProducts.patch("/:id", this.controller.updateProduct);
 
-    // routerProducts.delete("/:id", deleteProduct);
+    routerProducts.delete("/:id", this.controller.deleteProduct);
 
     return routerProducts;
   }
