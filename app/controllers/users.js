@@ -1,54 +1,58 @@
 const { httpError } = require("../helpers/handleErrors");
-const {
-  listAllUsers,
-  listOneUser,
-  createNewUser,
-  deleteOneUser,
-} = require("../services/users");
 
-const getUsers = async (req, res) => {
-  try {
-    let users = await listAllUsers();
-    res.send(users);
-    // res.render("register", { users: users });
-  } catch (e) {
-    httpError(res, e);
+const { UsersService } = require("../services/users");
+const PORT = process.env.PORT || 8080;
+
+
+class UsersController {
+  constructor() {
+    this.servicio = new UsersService();
   }
-};
 
-const getUser = async (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  try {
-    let user = await listOneUser(id);
-    res.send(user);
-  } catch (err) {
-    res.send("FAILEDDD");
-  }
-};
+  getUsers = async (req, res) => {
+    try {
+      let users = await this.servicio.listAllUsers();
+      res.send(users);
+      // res.render("register", { users: users });
+    } catch (e) {
+      httpError(res, e);
+    }
+  };
 
-const createUser = async (req, res) => {
-  const data = req.body;
-  try {
-    await createNewUser(data);
-    res.redirect("http://localhost:8080/login");
-  } catch (e) {
-    httpError(res, e);
-  }
-};
+  getUser = async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    try {
+      let user = await this.servicio.listOneUser(id);
+      res.send(user);
+    } catch (err) {
+      res.send("FAILEDDD");
+    }
+  };
 
-const updateUser = (req, res) => {};
+  createUser = async (req, res) => {
+    const data = req.body;
+    try {
+      await this.servicio.createNewUser(data);
+      res.redirect(`http://localhost:${PORT}/login`);
+    } catch (e) {
+      httpError(res, e);
+    }
+  };
 
-const deleteUser = async (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  try {
-    await deleteOneUser(id);
-    // await containerProducts.deleteById(product);
-    res.send("User deleted");
-  } catch (err) {
-    res.send("FAILEDD");
-  }
-};
+  updateUser = (req, res) => {};
 
-module.exports = { getUsers, getUser, createUser, updateUser, deleteUser };
+  deleteUser = async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    try {
+      await this.servicio.deleteOneUser(id);
+      // await containerProducts.deleteById(product);
+      res.send("User deleted");
+    } catch (err) {
+      res.send("FAILEDD");
+    }
+  };
+}
+
+module.exports = { UsersController };

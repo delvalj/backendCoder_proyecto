@@ -1,28 +1,32 @@
-const express = require("express");
-const routerSession = express.Router();
+const { Router } = require("express");
+const routerRegister = Router();
 const passport = require("../middlewares/passport");
 
-const {
-  getRegister,
-  registerUser,
-  getErrorRegister,
+const { UsersController } = require("../controllers/login");
 
-} = require("../controllers/login");
-routerSession.get("/register", getRegister);
+class RouterRegister {
+  constructor() {
+    this.controller = new UsersController();
+  }
 
-routerSession.get("/errorRegister", getErrorRegister);
+  config() {
+    routerRegister.get("/login", this.controller.getRegister);
+    routerRegister.get("/register", this.controller.getRegister);
+    routerRegister.get("/errorRegister", this.controller.getErrorRegister);
 
-// routerSession.get('/:id', getProduct);
-
-routerSession.post(
-  "/register",
-  passport.authenticate("register", {
-    failureRedirect: "/errorRegister",
-    failureMessage: true,
-  }),
-  registerUser
-);
+    // routerSession.get('/:id', getProduct);
+    routerRegister.post(
+      "/register",
+      passport.authenticate("register", {
+        failureRedirect: "/errorRegister",
+        failureMessage: true,
+      }),
+      this.controller.registerUser
+    );
+    return routerRegister;
+  }
+}
 // routerSession.patch('/:id', updateProduct);
 // routerSession.delete('/:id', deleteProduct);
 
-module.exports = routerSession;
+module.exports = RouterRegister;

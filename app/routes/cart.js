@@ -1,20 +1,28 @@
-const express = require("express");
-const routerCart = express.Router();
-// const passport = require("../middlewares/passport");
+const { Router } = require("express");
+const routerCart = Router();
 
-const { getCart, createCart, deleteCartProduct } = require("../controllers/cart");
+const { CartController } = require("../controllers/cart");
 
-routerCart.get("/", getCart);
-routerCart.post("/", createCart);
-routerCart.delete('/eliminarCarrito/:id', deleteCartProduct); 
+class RouterCart {
+  constructor() {
+    this.controller = new CartController();
+  }
 
-// routerCart.post(
-//   "/login",
-//   passport.authenticate("authenticate", { 
-//     failureRedirect: "/errorLogin",
-//     failureMessage: true,
-//   }), 
-//     userLogin,
-// );
+  config() {
+    routerCart.get("/", this.controller.getCart);
 
-module.exports = routerCart;
+    // routerProducts.get("/test", this.controller.test);
+
+    // routerProducts.get("/:id", this.controller.getCart);
+
+    routerCart.post("/", this.controller.createCart);
+
+    // routerProducts.patch("/:id", this.controller.updateCart);
+
+    routerCart.delete("/:id", this.controller.deleteCartProduct);
+
+    return routerCart;
+  }
+}
+
+module.exports = RouterCart;
