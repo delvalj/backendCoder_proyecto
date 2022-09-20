@@ -1,8 +1,10 @@
-const DaoProductsMongoose = require("../daos/daoMongoose");
+// const DaoProductsMongoose = require("../daos/daoMongoose");
+const { DAO_TYPE: daoType } = require("../../config");
+const { ProductDaoFactory } = require("../factory/daoProductsFactory");
 
 class ProductsService {
   constructor() {
-    this.dao = new DaoProductsMongoose();
+    this.dao = ProductDaoFactory.create(daoType)
   }
 
   test = () => {
@@ -12,7 +14,7 @@ class ProductsService {
    listAllProducts = async () => {
     let products = await this.dao.getAll();
     if (products === []) {
-      return "No hay Produuctos";
+      return "No Products";
     }
     return products;
   };
