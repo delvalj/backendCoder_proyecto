@@ -8,10 +8,10 @@ class ProductsController {
     this.servicio = new ProductsService();
   }
 
-  test = (req, res) => {
-    const resultado = this.servicio.test();
-    res.send(resultado);
-  };
+  // test = (req, res) => {
+  //   const resultado = this.servicio.test();
+  //   res.send(resultado);
+  // };
 
 
   getProducts = async (req, res) => {

@@ -3,7 +3,7 @@
 >
   <h1 class="my-3"> Bienvenido/a {{this.username}}</h1>
 
-  <img style="max-width: 150px" src="/uploads/{{this.username}}.jpg" alt="" />
+  <img style="max-width: 150px" src="/uploads/{{this.username}}.jpg" alt=""/>
 
   <br />
   <a href="/logout" class="btn btn-warning my-2">Log Out</a>
@@ -99,12 +99,14 @@
           <td>{{category}}</td>
 
           <td>
-            <form method="POST" action="/cart">
-              <input type="hidden" name="title" value="{{title}}" />
+            {{!-- Averiguar idCarrito, nombreUsuario --}}
+            <form method="POST" action="/cart/"+"nombreUsuario/"+"/idCarrito">
+            
+              {{!-- <input type="hidden" name="title" value="{{title}}" />
               <input type="hidden" name="thumbnail" value="{{thumbnail}}" />
               <input type="hidden" name="price" value="{{price}}" />
               <input type="hidden" name="description" value="{{description}}" />
-              <input type="hidden" name="category" value="{{category}}" />
+              <input type="hidden" name="category" value="{{category}}" /> --}}
               <button type="submit" class="btn btn-success btn-block m-2"> Agregar a Carrito</button>
             </form>
           </td>
