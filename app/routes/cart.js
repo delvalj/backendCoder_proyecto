@@ -15,7 +15,9 @@ class RouterCart {
 
     // routerProducts.get("/:id", this.controller.getCart);
 
-    routerCart.post("/", this.controller.createCart);
+    // routerCart.post("/", this.controller.addProductCart);
+
+    routerCart.post("/:username/:id", this.controller.addProductCart);
 
     // routerProducts.patch("/:id", this.controller.updateCart);
 

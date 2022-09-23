@@ -9,11 +9,11 @@
   <table class="container table table table-hover">
     <thead>
       <th>Id</th>
-      <th>Title</th>
+      {{!-- <th>Title</th>
       <th>Thumbnail</th>
       <th>Price</th>
       <th>Description</th>
-      <th>Category</th>
+      <th>Category</th> --}}
       <th></th>
     </thead>
 
@@ -21,11 +21,11 @@
       {{#each products}}
         <tr>
           <td>{{_id}}</td>
-          <td>{{title}}</td>
+          {{!-- <td>{{title}}</td>
           <td><a href="{{thumbnail}}">{{thumbnail}}</a></td>
           <td>${{price}}</td>
           <td>{{description}}</td>
-          <td>{{category}}</td>
+          <td>{{category}}</td> --}}
           <td>
             <form action="/cart" method="POST">
               <input type="hidden" name="id" value="{{_id}}" />

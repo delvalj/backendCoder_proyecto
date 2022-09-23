@@ -8,22 +8,18 @@ class ProductsController {
     this.servicio = new ProductsService();
   }
 
-  // test = (req, res) => {
-  //   const resultado = this.servicio.test();
-  //   res.send(resultado);
-  // };
-
-
   getProducts = async (req, res) => {
+    const username = req.user.username;
+    // console.log(username)
     try {
       let products = await this.servicio.listAllProducts();
       await res.render("main", {
         products: products,
+        username: username
       });
     } catch (e) {
       httpError(res, e);
     }
-    // res.redirect("http://localhost:8080/login");
   };
 
   getProduct = async (req, res) => {
@@ -60,21 +56,20 @@ class ProductsController {
   };
 }
 
-module.exports = {ProductsController};
+module.exports = { ProductsController };
 
-
-  // getProducts = async (req, res) => {
-  //   if (req.session.passport.user) {
-  //     try {
-  //       let products = await listAllProducts();
-  //       await res.render("main", {
-  //         products: products,
-  //         username: req.session.passport.user,
-  //       });
-  //     } catch (e) {
-  //       httpError(res, e);
-  //     }
-  //   } else {
-  //     res.redirect("http://localhost:8080/login");
-  //   }
-  // };
+// getProducts = async (req, res) => {
+//   if (req.session.passport.user) {
+//     try {
+//       let products = await listAllProducts();
+//       await res.render("main", {
+//         products: products,
+//         username: req.session.passport.user,
+//       });
+//     } catch (e) {
+//       httpError(res, e);
+//     }
+//   } else {
+//     res.redirect("http://localhost:8080/login");
+//   }
+// };

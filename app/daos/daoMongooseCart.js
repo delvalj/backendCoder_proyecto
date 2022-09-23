@@ -13,8 +13,8 @@ let instance = null;
 
 class DaoCartMongoose extends MongooseContainer {
   constructor() {
-    super("carts", dtoCartScheme);
-    this.model = mongoose.model("carts", dtoCartScheme);
+    super("cart", dtoCartScheme);
+    this.model = mongoose.model("cart", dtoCartScheme);
   }
 
   async createCart(user) {
