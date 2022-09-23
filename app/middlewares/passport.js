@@ -43,7 +43,6 @@ passport.use(
   "authenticate",
   new LocalStrategy(async (username, password, done) => {
     const users = await daoUser.getAll();
-
     const userFound = users.find((us) => us.username == username);
     if (!userFound || !bcrypt.compareSync(password, userFound.password)) {
       return done(null, false, { message: "NOT FOUND" });

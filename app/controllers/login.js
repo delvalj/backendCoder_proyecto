@@ -1,21 +1,26 @@
 const { httpError } = require("../helpers/handleErrors");
+const DaoMongooseCart = require("../daos/daoMongooseCart");
 
 const PORT = process.env.PORT || 8080;
 
-// ----------------------- // REGISTER // ---------------------------//
-
-// ----------------------- // LOGIN // ---------------------------//
-
 class UsersController {
-  constructor() {}
+  constructor() {
+    this.dao = new DaoMongooseCart();
+  }
 
   getLogin = async (req, res) => {
     res.render("login", {});
   };
 
   userLogin = async (req, res) => {
-    res.redirect(`http://localhost:${PORT}/products`);
+    res.redirect(`/products`);
   };
+
+  // getMainPage = async (req, res) => {
+  //   const username = req.body.username;
+  //   console.log(username)
+  //   res.redirect(`/mainViewUsers`, );
+  // };
 
   getErrorLogin = async (req, res) => {
     try {
@@ -42,7 +47,14 @@ class UsersController {
   };
 
   registerUser = async (req, res) => {
-    res.redirect(`http://localhost:${PORT}/login`);
+    try {
+      const username = req.body.username;
+      const cart = await this.dao.createCart(username);
+      await this.dao.save(cart);
+      res.redirect(`/login`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 }
 

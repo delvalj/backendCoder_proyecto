@@ -19,11 +19,14 @@ class CartController {
     // res.redirect("http://localhost:8080/login");
   };
 
-  createCart = async (req, res) => {
-    const data = req.body;
+  addProductCart = async (req, res) => {
+    // const data = req.body;
+    let username = req.params.username;
+    let id = req.params.id;
+    let data = { username, id}
     try {
-      await this.controller.createCarrito(data);
-      res.redirect(`http://localhost:${PORT}/products`);
+      await this.controller.addProductCart(data);
+      res.redirect(`/products`);
     } catch (e) {
       httpError(res, e);
     }

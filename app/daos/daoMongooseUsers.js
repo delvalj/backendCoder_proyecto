@@ -17,7 +17,7 @@ let instance = null;
 
 class DaoUsersMongoose extends MongooseContainer {
   constructor(model) {
-    super("users", dtoUsersScheme);
+    super("user", dtoUsersScheme);
   }
 
   async save(obj) {

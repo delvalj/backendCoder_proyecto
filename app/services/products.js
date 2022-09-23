@@ -7,9 +7,9 @@ class ProductsService {
     this.dao = ProductDaoFactory.create(daoType)
   }
 
-  test = () => {
-    return 'JUEGUE LA T';
-  };
+  // test = () => {
+  //   return 'JUEGUE LA T';
+  // };
 
    listAllProducts = async () => {
     let products = await this.dao.getAll();
