@@ -1,10 +1,10 @@
-// const DaoProductsMongoose = require("../daos/daoMongoose");
+const DaoProductsMongoose = require("../daos/daoMongoose");
 const { DAO_TYPE: daoType } = require("../../config");
-const { ProductDaoFactory } = require("../factory/daoProductsFactory");
+// const { ProductDaoFactory } = require("../factory/daoProductsFactory");
 
 class ProductsService {
   constructor() {
-    this.dao = ProductDaoFactory.create(daoType)
+    this.dao = new DaoProductsMongoose();
   }
 
   // test = () => {

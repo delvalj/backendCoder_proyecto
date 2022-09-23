@@ -1,9 +1,10 @@
 
-const path = require('path');
+// const path = require('path');
+// require("dotenv").config({
+//   path: path.resolve(__dirname, process.env.NODE_ENV + ".env"),
+// });
 
-require("dotenv").config({
-  path: path.resolve(__dirname, process.env.NODE_ENV + ".env"),
-});
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -70,8 +71,6 @@ const RouterUsers = require("./app/routes/users");
 const RouterCart = require("./app/routes/cart");
 const RouterLogin = require("./app/routes/login");
 const RouterRegister = require("./app/routes/session");
-
-
 
 const routerProducts = new RouterProducts();
 const routerUsers = new RouterUsers();
