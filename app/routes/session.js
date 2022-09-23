@@ -10,6 +10,7 @@ class RouterRegister {
   }
 
   config() {
+    console.log('hola')
     // routerRegister.get("/login", this.controller.getRegister);
     routerRegister.get("/register", this.controller.getRegister);
     routerRegister.get("/errorRegister", this.controller.getErrorRegister);
