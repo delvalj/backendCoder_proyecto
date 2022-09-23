@@ -34,7 +34,7 @@ class UsersController {
     const data = req.body;
     try {
       await this.servicio.createNewUser(data);
-      res.redirect(`http://localhost:${PORT}/login`);
+      res.redirect(`/login`);
     } catch (e) {
       httpError(res, e);
     }

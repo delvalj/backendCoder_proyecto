@@ -37,7 +37,7 @@ class ProductsController {
     // console.log(req.body)
     try {
       await this.servicio.createProducts(data);
-      res.redirect(`http://localhost:${PORT}/products`);
+      res.redirect(`/products`);
     } catch (e) {
       httpError(res, e);
     }
