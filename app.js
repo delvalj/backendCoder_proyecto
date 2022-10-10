@@ -1,5 +1,4 @@
-
-const path = require('path');
+const path = require("path");
 
 require("dotenv").config({
   path: path.resolve(__dirname, process.env.NODE_ENV + ".env"),
@@ -16,6 +15,7 @@ const bodyParser = require("body-parser");
 
 const session = require("express-session");
 const passport = require("./app/middlewares/passport");
+const isLogged = require("./app/middlewares/isLogged");
 
 const { dbConnect } = require("./config/mongo.js");
 const { engine } = require("express-handlebars");
@@ -65,13 +65,11 @@ app.use(
 app.use(passport.session());
 app.use(passport.initialize());
 
-const RouterProducts = require("./app/routes/products")
+const RouterProducts = require("./app/routes/products");
 const RouterUsers = require("./app/routes/users");
 const RouterCart = require("./app/routes/cart");
 const RouterLogin = require("./app/routes/login");
 const RouterRegister = require("./app/routes/session");
-
-
 
 const routerProducts = new RouterProducts();
 const routerUsers = new RouterUsers();
@@ -80,11 +78,16 @@ const routerLogin = new RouterLogin();
 const routerRegister = new RouterRegister();
 
 // app.use("/api", require("./app/routes"));
-app.use("/products", routerProducts.config());
-app.use("/users", routerUsers.config());
-app.use("/cart", routerCart.config());
+
+app.use("/products", isLogged, routerProducts.config());
+app.use("/users", isLogged, routerUsers.config());
+app.use("/cart", isLogged, routerCart.config());
 app.use("/", routerLogin.config());
 app.use("/", routerRegister.config());
+
+app.get("*", (req, res) => {
+  res.render("404");
+});
 
 dbConnect();
 const server = app.listen(PORT, () => {

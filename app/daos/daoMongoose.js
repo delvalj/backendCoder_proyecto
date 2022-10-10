@@ -4,7 +4,7 @@ const { MongooseContainer } = require("../container/ContainerMongoose");
 
 const dtoProductScheme = new mongoose.Schema(
   {
-    title: { type: String, unique: true, required: true },
+    title: { type: String , required: true },
     thumbnail: { type: String, required: true },
     price: { type: Number, required: true },
     description: { type: String, required: true },

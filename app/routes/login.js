@@ -10,7 +10,7 @@ class RouterLogin {
   }
 
   config() {
-    routerLogin.get("/login", this.controller.getLogin);
+    routerLogin.get("/", this.controller.getLogin);
     routerLogin.get("/errorLogin", this.controller.getErrorLogin);
     routerLogin.post(
       "/login",

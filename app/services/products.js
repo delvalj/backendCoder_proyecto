@@ -4,30 +4,30 @@ const { ProductDaoFactory } = require("../factory/daoProductsFactory");
 
 class ProductsService {
   constructor() {
-    this.dao = ProductDaoFactory.create(daoType)
+    this.dao = ProductDaoFactory.create(daoType);
   }
 
-  // test = () => {
-  //   return 'JUEGUE LA T';
-  // };
-
-   listAllProducts = async () => {
+  listAllProducts = async () => {
     let products = await this.dao.getAll();
     if (products === []) {
       return "No Products";
     }
     return products;
   };
-  
-   listOneProduct = async (id) => {
+
+  getAll = async () => {
+    return await this.dao.getAll();
+  };
+
+  listOneProduct = async (id) => {
     let products = await this.dao.getById(id);
     if (products === []) {
       return "Producto con Id ";
     }
     return products;
   };
-  
-   createProducts = async (data) => {
+
+  createProducts = async (data) => {
     const { title, thumbnail, price, description, category } = data;
     const newProduct = {
       title: title,
@@ -36,14 +36,14 @@ class ProductsService {
       description,
       category,
     };
-  
+
     await this.dao.save(newProduct);
-    return newProduct;  
+    return newProduct;
   };
-  
+
   deleteOneProduct = async (id) => {
-    if(!id){
-      res.send('Error en Eliminar producto.')
+    if (!id) {
+      res.send("Error en Eliminar producto.");
     }
     return await this.dao.deleteById(id);
   };

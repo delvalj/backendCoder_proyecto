@@ -22,6 +22,11 @@ class ProductsController {
     }
   };
 
+  getProductos = async (req, res) => {
+    let products = await this.servicio.getAll();
+    res.send(products)
+  }
+
   getProduct = async (req, res) => {
     const id = req.params.id;
     try {
