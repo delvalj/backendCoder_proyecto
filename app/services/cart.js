@@ -7,12 +7,16 @@ class CartService {
     this.daoProd = new DaoProductsMongoose();
   }
 
-  listAllProducts = async () => {
-    let products = await this.dao.getAll();
-    if (products === []) {
-      return "Carrito Vacio";
-    }
-    return products;
+  listAllProducts = async (username) => {
+
+    let allCarts = await this.dao.getAll();
+    const carritoFound = allCarts.find((carrito) => carrito.userCart == username);
+    console.log(carritoFound)
+    return carritoFound;
+    // if (products === []) {
+    //   return "Carrito Vacio";
+    // }
+    // return products;
   };
 
   addProductCart = async (data) => {

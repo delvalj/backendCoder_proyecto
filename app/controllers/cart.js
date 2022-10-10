@@ -1,17 +1,23 @@
 const { httpError } = require("../helpers/handleErrors");
 const { CartService } = require("../services/cart");
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080;
 
 class CartController {
   constructor() {
     this.controller = new CartService();
   }
   getCart = async (req, res) => {
+    const { username } = req.user;
     try {
-      let products = await this.controller.listAllProducts();
+      let carrito = await this.controller.listAllProducts(username);
+      let products = carrito.products;
+
+      console.log(products)
       await res.render("carrito", {
-        products: products,
+        username: username,
+        products: products
+        
       });
     } catch (e) {
       httpError(res, e);
@@ -23,7 +29,7 @@ class CartController {
     // const data = req.body;
     let username = req.params.username;
     let id = req.params.id;
-    let data = { username, id}
+    let data = { username, id };
     try {
       await this.controller.addProductCart(data);
       res.redirect(`/products`);

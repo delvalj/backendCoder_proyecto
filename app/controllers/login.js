@@ -51,7 +51,7 @@ class UsersController {
       const username = req.body.username;
       const cart = await this.dao.createCart(username);
       await this.dao.save(cart);
-      res.redirect(`/login`);
+      res.redirect(`/`);
     } catch (err) {
       console.log(err);
     }

@@ -3,7 +3,7 @@ const isLogged = (req, res, next) => {
     // console.log(req.user);
     return next();
   } else {
-    res.redirect("/login");
+    res.redirect("/");
   }
 };
 

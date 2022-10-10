@@ -11,7 +11,7 @@ class RouterProducts {
 
   config() {
 
-    routerProducts.get("/", isLogged, this.controller.getProducts);
+    routerProducts.get("/",  this.controller.getProducts);
 
     routerProducts.get("/prods", this.controller.getProductos);
 
