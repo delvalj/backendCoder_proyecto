@@ -10,8 +10,6 @@ class RouterProducts {
   }
 
   config() {
-    // routerProducts.get("/", isLogged, this.controller.getProducts);
-
 
     routerProducts.get("/", isLogged, this.controller.getProducts);
 

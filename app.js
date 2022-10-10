@@ -85,6 +85,17 @@ app.use("/cart", isLogged, routerCart.config());
 app.use("/", routerLogin.config());
 app.use("/", routerRegister.config());
 
+app.get("/logout", isLogged, (req, res) => {
+  // const user = req.session.name;
+  // console.log(user);
+  req.session.destroy((err) => {
+    // console.log(err);
+    res.render("logout", 
+    // { user: user }
+    );
+  });
+});
+
 app.get("*", (req, res) => {
   res.render("404");
 });
