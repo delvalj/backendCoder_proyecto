@@ -3,9 +3,6 @@ const socket = io({
 });
 
 const enviarMensaje = () => {
-  console.log("HOLA HOLA HOLA HOLA");
-
-  // const email = document.getElementById("email").value;
   const text = document.getElementById("text").value;
   const email = document.getElementById("userMail").innerHTML;
 
@@ -22,7 +19,7 @@ const crearEtiquetasMensaje = (mensaje) => {
   const { email, text } = mensaje;
   return `
     <div class="p-1">
-      <strong class="text-uppercase text-danger">${email}</strong>
+      <strong class="text-danger">${email}</strong>
       <em class="text-primary ">[ ${text} ]</em>
     </div>
   `;

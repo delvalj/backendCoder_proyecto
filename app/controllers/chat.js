@@ -10,19 +10,17 @@ class ChatController {
 
   getChat = async (req, res) => {
     const email = req.user.email;
+
     await this.controller.listAllMsgs();
-    res.render("chat", {username : email });
+    res.render("chat", { username: email });
   };
 
-  //   getUsers = async (req, res) => {
-  //   try {
-  //     let users = await this.servicio.listAllUsers();
-  //     res.send(users);
-  //     // res.render("register", { users: users });
-  //   } catch (e) {
-  //     httpError(res, e);
-  //   }
-  // };
+  getChatHistory = async (req, res) => {
+    // const email = req.user.email;
+    const email = req.params.email;
+    const chats = await this.controller.listChatHistory(email);
+    res.render("chatFilter", { username: email, chats });
+  };
 }
 
 module.exports = { ChatController };
