@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const routerChat = Router();
+const isLogged = require('../middlewares/isLogged')
 
 const { ChatController } = require("../controllers/chat");
 
@@ -9,9 +10,7 @@ class RouterChat {
   }
 
   config() {
-    routerChat.get("/", (req, res) => {
-      res.render("chat");
-    });
+    routerChat.get("/", isLogged ,this.controller.getChat);
 
     return routerChat;
   }

@@ -5,8 +5,9 @@ const socket = io({
 const enviarMensaje = () => {
   console.log("HOLA HOLA HOLA HOLA");
 
-  const email = document.getElementById("email").value;
+  // const email = document.getElementById("email").value;
   const text = document.getElementById("text").value;
+  const email = document.getElementById("userMail").innerHTML;
 
   const mensaje = { email, text };
 
