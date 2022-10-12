@@ -24,11 +24,10 @@ passport.use(
       const passwordBcrypt = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
       const newUser = {
+        name: req.body.name,
         username: username,
         password: passwordBcrypt,
-        email: req.body.email,
         address: req.body.address,
-        age: req.body.age,
         phone: req.body.phone,
         // image: imagePath,
       };

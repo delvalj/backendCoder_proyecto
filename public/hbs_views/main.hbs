@@ -1,8 +1,10 @@
 <div
   class="container text-center mt-2 border shadow-lg p-3 mb-5 bg-body rounded"
 >
-  <h1 class="my-3">Bienvenido/a {{this.username}}</h1>
-
+<div class="border">
+  <h1 class="  p-1 m-1 text-uppercase">WELCOME</h1>
+  <h4 class="  p-1 m-1 text-danger"> {{this.username}}</h1>
+</div>
   {{!-- <img style="max-width: 150px" src="/uploads/{{this.username}}.jpg" alt=""/> --}}
 
   <br />
@@ -10,7 +12,7 @@
   <a href="/cart" class="btn btn-dark my-2">Cart</a>
   <a href="/chat" class="btn btn-primary my-2">Chat with Support</a>
 
-  <h4 class="m-3">Ingrese Su Producto</h4>
+  <h4 class="m-3">Add Products</h4>
   <form method="POST" action="/products" id="addprod">
     <!-- title input -->
     <div class="form-outline mb-4">
@@ -76,7 +78,7 @@
 </div>
 
 <div class="container border p-4 shadow-lg p-3 mb-5 bg-body rounded">
-  <h2 class="text-center">PRODUCTOS</h2>
+  <h2 class="text-center">PRODUCTS</h2>
   <table action="" class="container table table table-hover text-center">
     <thead>
       <th>Id</th>

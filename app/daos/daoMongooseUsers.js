@@ -3,11 +3,10 @@ const { MongooseContainer } = require("../container/ContainerMongoose");
 
 const dtoUsersScheme = new mongoose.Schema(
   {
+    name: { type: String, unique: true, required: true },
     username: { type: String, unique: true, required: true },
     password: { type: String, required: true },
-    email: { type: String, required: true },
     address: { type: String, required: true },
-    age: { type: Number, required: true },
     phone: { type: Number, required: true },
   },
   { timestamp: true, __v: false }

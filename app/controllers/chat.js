@@ -9,10 +9,10 @@ class ChatController {
   }
 
   getChat = async (req, res) => {
-    const email = req.user.email;
+    const username = req.user.username;
 
     await this.controller.listAllMsgs();
-    res.render("chat", { username: email });
+    res.render("chat", { username: username });
   };
 
   getChatHistory = async (req, res) => {
