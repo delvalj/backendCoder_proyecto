@@ -11,7 +11,7 @@ class ProductsController {
   getProducts = async (req, res) => {
     const username = req.user.username;
     const name = req.session.passport.user;
-    console.log(name)
+    // console.log(name)
     try {
       let products = await this.servicio.listAllProducts();
       await res.render("main", {

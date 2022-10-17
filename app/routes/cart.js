@@ -21,7 +21,7 @@ class RouterCart {
 
     // routerProducts.patch("/:id", this.controller.updateCart);
 
-    routerCart.delete("/:id", this.controller.deleteCartProduct);
+    routerCart.post("/:id", this.controller.deleteCartProduct);
 
     return routerCart;
   }

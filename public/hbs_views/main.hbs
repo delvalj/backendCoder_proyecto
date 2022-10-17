@@ -119,8 +119,8 @@
           </td>
 
           <td>
-            <form method="POST" action="/cart">
-              <input type="hidden" name="id" value="{{_id}}" />
+            <form method="POST" action="/cart/{{../this.username}}/{{_id}}">
+              <input type="hidden" name="id" value="{{_id}}"/>
               <button
                 type="submit"
                 class="btn btn-danger btn-block m-2">Eliminar Producto</button>

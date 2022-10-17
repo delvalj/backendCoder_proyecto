@@ -8,10 +8,11 @@ class CartService {
   }
 
   listAllProducts = async (username) => {
-
     let allCarts = await this.dao.getAll();
-    const carritoFound = allCarts.find((carrito) => carrito.userCart == username);
-    console.log(carritoFound)
+    const carritoFound = allCarts.find(
+      (carrito) => carrito.userCart == username
+    );
+    // console.log(carritoFound)
     return carritoFound;
     // if (products === []) {
     //   return "Carrito Vacio";
@@ -44,11 +45,18 @@ class CartService {
     // console.log(usersCart[0].products, "soy el userCart");
   };
 
-  deleteOneProduct = async (id) => {
-    if (!id) {
-      res.send("Error en Eliminar producto.");
-    }
-    return await this.dao.deleteById(id);
+  deleteOneProduct = async (username, idProduct) => {
+    const carritos = await this.dao.getAll();
+
+    const carritoUser = carritos.filter(
+      (carrito) => carrito.userCart === username
+    );
+
+    let products = carritoUser[0].products;
+    const newProduct = products.filter((prod) => prod._id != idProduct);
+    products = newProduct;
+    console.log(newProduct);
+    this.dao.update(username, products);
   };
 }
 

@@ -11,8 +11,6 @@
   </div>
       <a href="/products" class="btn btn-warning my-3 text-center">Return to Menu</a>
 
-
-
   <table class="container table table table-hover">
     <thead>
       <th>Id</th>
@@ -34,7 +32,10 @@
           <td>{{description}}</td>
           <td>{{category}}</td>
           <td>
-            <form action="/cart" method="POST">
+            <form 
+            {{!-- action="/cart" --}}
+             action="/cart/{{_id}}" 
+             method="POST">
               <input type="hidden" name="id" value="{{_id}}" />
               <button type="submit" class="btn btn-warning m-1">Eliminar del Carrito</button>
             </form>

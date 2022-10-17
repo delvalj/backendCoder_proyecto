@@ -21,7 +21,7 @@ class UsersController {
 
   getUser = async (req, res) => {
     const id = req.params.id;
-    console.log(id);
+    // console.log(id);
     try {
       let user = await this.servicio.listOneUser(id);
       res.send(user);

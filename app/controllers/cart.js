@@ -13,11 +13,10 @@ class CartController {
       let carrito = await this.controller.listAllProducts(username);
       let products = carrito.products;
 
-      console.log(products)
+      // console.log(products);
       await res.render("carrito", {
         username: username,
-        products: products
-        
+        products: products,
       });
     } catch (e) {
       httpError(res, e);
@@ -26,10 +25,10 @@ class CartController {
   };
 
   addProductCart = async (req, res) => {
-    // const data = req.body;
     let username = req.params.username;
     let id = req.params.id;
     let data = { username, id };
+
     try {
       await this.controller.addProductCart(data);
       res.redirect(`/products`);
@@ -39,22 +38,16 @@ class CartController {
   };
 
   deleteCartProduct = async (req, res) => {
-    const id = req.params.id;
+    const idProduct = req.params.id;
+    const { username } = req.user;
+
     try {
-      await this.controller.deleteOneProduct(id);
-      res.send("Producto Eliminado");
+      await this.controller.deleteOneProduct(username, idProduct);
+      res.redirect(`/cart`);
     } catch (err) {
-      res.send("FAILEDD");
+      res.send("FAILED en el carrito");
     }
   };
 }
 
 module.exports = { CartController };
-
-// // const name = req.session.passport.user;
-// try {
-//   let products = await listAllProducts();
-//   await res.render("carrito", { products: products });
-// } catch (e) {
-//   httpError(res, e);
-// }
