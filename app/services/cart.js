@@ -55,7 +55,7 @@ class CartService {
     let products = carritoUser[0].products;
     const newProduct = products.filter((prod) => prod._id != idProduct);
     products = newProduct;
-    console.log(newProduct);
+    // console.log(newProduct);
     this.dao.update(username, products);
   };
 }

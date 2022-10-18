@@ -12,8 +12,6 @@ class CartController {
     try {
       let carrito = await this.controller.listAllProducts(username);
       let products = carrito.products;
-
-      // console.log(products);
       await res.render("carrito", {
         username: username,
         products: products,
@@ -21,7 +19,6 @@ class CartController {
     } catch (e) {
       httpError(res, e);
     }
-    // res.redirect("http://localhost:8080/login");
   };
 
   addProductCart = async (req, res) => {

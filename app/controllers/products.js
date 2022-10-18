@@ -14,7 +14,8 @@ class ProductsController {
     // console.log(name)
     try {
       let products = await this.servicio.listAllProducts();
-      await res.render("main", {
+      await res.render("mainViewUsers", {
+      // await res.render("admin", {
         products: products,
         username: username
       });
