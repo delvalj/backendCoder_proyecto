@@ -22,6 +22,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("./app/middlewares/passport");
 const isLogged = require("./app/middlewares/isLogged");
+const logger = require("./app/helpers/loggers");
 
 const { dbConnect } = require("./config/mongo.js");
 const { engine } = require("express-handlebars");
@@ -133,6 +134,10 @@ socketServer.on("connection", async (socket) => {
 dbConnect();
 const server = httpServer.listen(PORT, () => {
   console.log("API Running ", PORT);
+  logger.trace("API RUNNING IN LOCAL PORT");
+  logger.info("API RUNNING IN LOCAL PORT");
+  logger.fatal("API FATAL IN LOCAL PORT");
+  logger.warn("API FATAL IN LOCAL PORT");
 });
 
 server.on("error", (err) => {
