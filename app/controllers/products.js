@@ -24,10 +24,20 @@ class ProductsController {
     }
   };
 
-  getProductos = async (req, res) => {
-    let products = await this.servicio.getAll();
-    res.send(products)
-  }
+  adminAddProduct = async (req, res) => {
+    const username = req.user.username;
+    const name = req.session.passport.user;
+    // console.log(name)
+    try {
+      let products = await this.servicio.listAllProducts();
+      await res.render("admin", {
+        products: products,
+        username: username
+      });
+    } catch (e) {
+      httpError(res, e);
+    }
+  };
 
   getProduct = async (req, res) => {
     const id = req.params.id;

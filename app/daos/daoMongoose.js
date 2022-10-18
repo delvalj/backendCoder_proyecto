@@ -9,6 +9,7 @@ const dtoProductScheme = new mongoose.Schema(
     price: { type: Number, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },
+    quantity : {type : Number , required : true, default : 1 , min : 1}
   },
   { timestamp: true, __v: false }
 );

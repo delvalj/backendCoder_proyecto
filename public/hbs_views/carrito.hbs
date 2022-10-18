@@ -19,6 +19,7 @@
       <th>Price</th>
       <th>Description</th>
       <th>Category</th>
+      <th>Quantity</th>
       <th></th>
     </thead>
 
@@ -31,13 +32,14 @@
           <td>${{price}}</td>
           <td>{{description}}</td>
           <td>{{category}}</td>
+          <td>{{quantity}}</td>
           <td>
             <form 
             {{!-- action="/cart" --}}
              action="/cart/{{_id}}" 
              method="POST">
               <input type="hidden" name="id" value="{{_id}}" />
-              <button type="submit" class="btn btn-warning m-1">Eliminar del Carrito</button>
+              <button type="submit" class="btn btn-danger btn-block m-2">Eliminar del Carrito</button>
             </form>
           </td>
         </tr>

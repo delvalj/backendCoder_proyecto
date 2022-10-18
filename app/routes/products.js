@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const routerProducts = Router();
 const isLogged = require("../middlewares/isLogged");
+const isAdmin = require("../middlewares/isAdmin");
 
-const {ProductsController} = require("../controllers/products");
+const { ProductsController } = require("../controllers/products");
 
 class RouterProducts {
   constructor() {
@@ -10,12 +11,10 @@ class RouterProducts {
   }
 
   config() {
+    routerProducts.get("/", this.controller.getProducts);
 
-    routerProducts.get("/",  this.controller.getProducts);
-
-    routerProducts.get("/prods", this.controller.getProductos);
-
-    // routerProducts.get("/test", this.controller.test);
+    //Agrego productos si soy el admnin
+    routerProducts.get("/admin", isAdmin, this.controller.adminAddProduct);
 
     routerProducts.get("/:id", this.controller.getProduct);
 
