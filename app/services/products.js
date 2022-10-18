@@ -27,6 +27,19 @@ class ProductsService {
     return products;
   };
 
+  listProductsCategory = async (category) => {
+    let products = await this.dao.getAll();
+    // console.log(products);
+
+    const prodFiltered = products.filter((prod) => prod.category === category);
+    console.log(prodFiltered);
+
+    if (products === []) {
+      return "Producto con Id ";
+    }
+    return prodFiltered;
+  };
+
   createProducts = async (data) => {
     const { title, thumbnail, price, description, category } = data;
     const newProduct = {

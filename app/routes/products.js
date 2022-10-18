@@ -18,6 +18,8 @@ class RouterProducts {
 
     routerProducts.get("/:id", this.controller.getProduct);
 
+    routerProducts.get("/category/:category", this.controller.getProductCategory);
+
     routerProducts.post("/", this.controller.createProduct);
 
     routerProducts.patch("/:id", this.controller.updateProduct);
