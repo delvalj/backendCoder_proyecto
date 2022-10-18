@@ -133,13 +133,11 @@ socketServer.on("connection", async (socket) => {
 
 dbConnect();
 const server = httpServer.listen(PORT, () => {
-  console.log("API Running ", PORT);
-  logger.trace("API RUNNING IN LOCAL PORT");
-  logger.info("API RUNNING IN LOCAL PORT");
-  logger.fatal("API FATAL IN LOCAL PORT");
-  logger.warn("API FATAL IN LOCAL PORT");
+  // console.log("API Running ", PORT);
+  logger.info("API Running");
 });
 
 server.on("error", (err) => {
   console.log(err.message);
+  logger.error("Error ");
 });
