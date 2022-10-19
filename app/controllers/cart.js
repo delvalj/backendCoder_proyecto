@@ -38,10 +38,19 @@ class CartController {
   deleteCartProduct = async (req, res) => {
     const idProduct = req.params.id;
     const { username } = req.user;
-
     try {
       await this.controller.deleteOneProduct(username, idProduct);
       res.redirect(`/cart`);
+    } catch (err) {
+      logger.error("Error Deleting one product");
+    }
+  };
+
+  comprarProduct = async (req, res) => {
+    const username = req.user.username;
+    try {
+      await this.controller.deleteAllProducts(username);
+      res.redirect(`/products`);
     } catch (err) {
       logger.error("Error Deleting one product");
     }

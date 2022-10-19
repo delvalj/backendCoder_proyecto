@@ -11,6 +11,8 @@ class RouterCart {
   config() {
     routerCart.get("/", this.controller.getCart);
 
+    routerCart.post("/comprar", this.controller.comprarProduct);
+
     routerCart.post("/:username/:id", this.controller.addProductCart);
     
     routerCart.post("/:id", this.controller.deleteCartProduct);

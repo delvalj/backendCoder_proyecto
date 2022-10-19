@@ -22,7 +22,7 @@ class CartService {
       (carrito) => carrito.userCart === username
     );
     const productosEnCarrito = usersCart[0].products;
-    console.log(productosEnCarrito);
+    // console.log(productosEnCarrito);
 
     // Para que no agregue de nuevo el producto
     const checkExist = (prod) => prod._id != id;
@@ -45,14 +45,17 @@ class CartService {
 
   deleteOneProduct = async (username, idProduct) => {
     const carritos = await this.dao.getAll();
-
     const carritoUser = carritos.filter(
       (carrito) => carrito.userCart === username
     );
-
     let products = carritoUser[0].products;
     const newProduct = products.filter((prod) => prod._id != idProduct);
     products = newProduct;
+    this.dao.update(username, products);
+  };
+
+  deleteAllProducts = async (username) => {
+    const products = [];
     this.dao.update(username, products);
   };
 }
