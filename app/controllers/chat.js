@@ -16,7 +16,6 @@ class ChatController {
   };
 
   getChatHistory = async (req, res) => {
-    // const email = req.user.email;
     const email = req.params.email;
     const chats = await this.controller.listChatHistory(email);
     res.render("chatFilter", { username: email, chats });

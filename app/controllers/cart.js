@@ -1,3 +1,4 @@
+const { logger } = require("handlebars");
 const { httpError } = require("../helpers/handleErrors");
 const { CartService } = require("../services/cart");
 
@@ -42,7 +43,7 @@ class CartController {
       await this.controller.deleteOneProduct(username, idProduct);
       res.redirect(`/cart`);
     } catch (err) {
-      res.send("FAILED en el carrito");
+      logger.error("Error Deleting one product");
     }
   };
 }

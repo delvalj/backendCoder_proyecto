@@ -12,11 +12,6 @@ class RouterCart {
     routerCart.get("/", this.controller.getCart);
     routerCart.post("/:username/:id", this.controller.addProductCart);
     routerCart.post("/:id", this.controller.deleteCartProduct);
-
-    // routerProducts.get("/test", this.controller.test);
-    // routerProducts.get("/:id", this.controller.getCart);
-    // routerCart.post("/", this.controller.addProductCart);
-    // routerProducts.patch("/:id", this.controller.updateCart);
     return routerCart;
   }
 }

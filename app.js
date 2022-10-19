@@ -24,6 +24,7 @@ const passport = require("./app/middlewares/passport");
 const isLogged = require("./app/middlewares/isLogged");
 const logger = require("./app/helpers/loggers");
 
+
 const { dbConnect } = require("./config/mongo.js");
 const { engine } = require("express-handlebars");
 const { DB_URI, SECRET } = process.env;
