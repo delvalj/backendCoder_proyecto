@@ -89,44 +89,28 @@
       <th>Category</th>
       <th></th>
       <th></th>
-
-
-
     </thead>
     <tbody>
       {{#each products}}
-                {{!-- {{log this}} --}}
-
-        <tr>
+              <tr>
           <td>{{_id}}</td>
           <td>{{title}}</td>
           <td><a href="{{thumbnail}}">{{thumbnail}}</a></td>
           <td>${{price}}</td>
           <td>{{description}}</td>
           <td>{{category}}</td>
-  
           <td>
-            {{!-- Averiguar idCarrito, nombreUsuario --}}
             <form method="POST" action="/cart/{{../this.username}}/{{_id}}">
-
-              {{!-- <input type="hidden" name="title" value="{{title}}" />
-              <input type="hidden" name="thumbnail" value="{{thumbnail}}" />
-              <input type="hidden" name="price" value="{{price}}" />
-              <input type="hidden" name="description" value="{{description}}" />
-              <input type="hidden" name="category" value="{{category}}" /> --}}
-              {{!-- <button type="submit" class="btn btn-success btn-block m-2"> Agregar a Carrito</button> --}}
             </form>
           </td>
-
           <td>
-            <form method="POST" action="/cart/{{../this.username}}/{{_id}}">
+            <form method="POST" action="/products/{{_id}}">
               <input type="hidden" name="id" value="{{_id}}"/>
               <button
                 type="submit"
-                class="btn btn-danger btn-block m-2">Eliminar Producto</button>
+                class="btn btn-danger btn-block m-2">DELETE</button>
             </form>
           </td>
-
         </tr>
       {{/each}}
     </tbody>

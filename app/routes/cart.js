@@ -10,7 +10,9 @@ class RouterCart {
 
   config() {
     routerCart.get("/", this.controller.getCart);
+
     routerCart.post("/:username/:id", this.controller.addProductCart);
+    
     routerCart.post("/:id", this.controller.deleteCartProduct);
     return routerCart;
   }

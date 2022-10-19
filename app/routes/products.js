@@ -24,7 +24,7 @@ class RouterProducts {
 
     routerProducts.patch("/:id", this.controller.updateProduct);
 
-    routerProducts.delete("/:id", this.controller.deleteProduct);
+    routerProducts.post("/:id", this.controller.deleteProduct);
 
     return routerProducts;
   }
