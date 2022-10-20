@@ -54,9 +54,10 @@ class CartService {
     this.dao.update(username, products);
   };
 
-  deleteAllProducts = async (username) => {
+  deleteAllProductsFromCart = async (username) => {
     const products = [];
     this.dao.update(username, products);
+    
   };
 }
 

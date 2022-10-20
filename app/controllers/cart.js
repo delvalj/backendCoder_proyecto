@@ -1,6 +1,8 @@
-const { logger } = require("handlebars");
+// const { logger } = require("handlebars");
 const { httpError } = require("../helpers/handleErrors");
 const { CartService } = require("../services/cart");
+
+const logger = require("../helpers/loggers");
 
 const PORT = process.env.PORT || 8080;
 
@@ -19,6 +21,7 @@ class CartController {
       });
     } catch (e) {
       httpError(res, e);
+      logger;
     }
   };
 
@@ -32,6 +35,7 @@ class CartController {
       res.redirect(`/products`);
     } catch (e) {
       httpError(res, e);
+      logger.error("ERROR adding product.");
     }
   };
 
@@ -49,10 +53,10 @@ class CartController {
   comprarProduct = async (req, res) => {
     const username = req.user.username;
     try {
-      await this.controller.deleteAllProducts(username);
+      await this.controller.deleteAllProductsFromCart(username);
       res.redirect(`/products`);
     } catch (err) {
-      logger.error("Error Deleting one product");
+      logger.error("Error Buying product");
     }
   };
 }
