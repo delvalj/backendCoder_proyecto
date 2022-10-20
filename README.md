@@ -21,6 +21,7 @@ username= admin@sistema.com
 password= admin
 
 /products/admin
+/order
 ```
 
 ```

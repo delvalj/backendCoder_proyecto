@@ -24,7 +24,6 @@ const passport = require("./app/middlewares/passport");
 const isLogged = require("./app/middlewares/isLogged");
 const logger = require("./app/helpers/loggers");
 
-
 const { dbConnect } = require("./config/mongo.js");
 const { engine } = require("express-handlebars");
 const { DB_URI, SECRET } = process.env;
@@ -80,6 +79,7 @@ const RouterCart = require("./app/routes/cart");
 const RouterLogin = require("./app/routes/login");
 const RouterRegister = require("./app/routes/session");
 const RouterChat = require("./app/routes/chat");
+const RouterOrder = require("./app/routes/order");
 
 const DaoChatMongoose = require("./app/daos/daoChatMongoose");
 
@@ -89,6 +89,7 @@ const routerCart = new RouterCart();
 const routerLogin = new RouterLogin();
 const routerRegister = new RouterRegister();
 const routerChat = new RouterChat();
+const routerOrder = new RouterOrder();
 
 const daoChatMongoose = new DaoChatMongoose();
 
@@ -100,6 +101,11 @@ app.use("/cart", isLogged, routerCart.config());
 app.use("/", routerLogin.config());
 app.use("/", routerRegister.config());
 app.use("/chat", isLogged, routerChat.config());
+app.use("/order", isLogged, routerOrder.config());
+
+//---------------------------------//
+// ------ Logout && 404 --------- //
+//---------------------------------//
 
 app.get("/logout", isLogged, (req, res) => {
   const username = req.user.username;

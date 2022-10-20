@@ -1,10 +1,13 @@
 const DaoCartMongoose = require("../daos/daoMongooseCart");
 const DaoProductsMongoose = require("../daos/daoMongoose");
 
+const { OrderController } = require("../controllers/order");
+
 class CartService {
   constructor() {
     this.dao = new DaoCartMongoose();
     this.daoProd = new DaoProductsMongoose();
+    this.controller = new OrderController();
   }
 
   listAllProducts = async (username) => {
@@ -55,9 +58,14 @@ class CartService {
   };
 
   deleteAllProductsFromCart = async (username) => {
+    let carritos = await this.dao.getAll();
+    let usersCart = await carritos.filter(
+      (carrito) => carrito.userCart === username
+    );
+    let userOrder = await this.controller.generateOrder(usersCart);
+
     const products = [];
     this.dao.update(username, products);
-    
   };
 }
 
