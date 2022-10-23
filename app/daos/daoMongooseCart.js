@@ -43,6 +43,7 @@ class DaoCartMongoose extends MongooseContainer {
   async deleteById(id) {
     await this.schema.deleteOne({ _id: id });
   }
+  
   async deleteAll() {
     await this.schema.deleteMany({});
   }

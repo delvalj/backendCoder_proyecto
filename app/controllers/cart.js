@@ -1,54 +1,64 @@
+// const { logger } = require("handlebars");
 const { httpError } = require("../helpers/handleErrors");
 const { CartService } = require("../services/cart");
 
-const PORT = process.env.PORT || 8080
+const logger = require("../helpers/loggers");
+
+const PORT = process.env.PORT || 8080;
 
 class CartController {
   constructor() {
-    this.controller = new CartService();
+    this.service = new CartService();
   }
   getCart = async (req, res) => {
+    const { username } = req.user;
     try {
-      let products = await this.controller.listAllProducts();
+      let carrito = await this.service.listAllProducts(username);
+      let products = carrito.products;
       await res.render("carrito", {
+        username: username,
         products: products,
       });
     } catch (e) {
       httpError(res, e);
+      logger;
     }
-    // res.redirect("http://localhost:8080/login");
   };
 
   addProductCart = async (req, res) => {
-    // const data = req.body;
     let username = req.params.username;
     let id = req.params.id;
-    let data = { username, id}
+    let data = { username, id };
+
     try {
-      await this.controller.addProductCart(data);
+      await this.service.addProductCart(data);
       res.redirect(`/products`);
     } catch (e) {
       httpError(res, e);
+      logger.error("ERROR adding product.");
     }
   };
 
   deleteCartProduct = async (req, res) => {
-    const id = req.params.id;
+    const idProduct = req.params.id;
+    const { username } = req.user;
     try {
-      await this.controller.deleteOneProduct(id);
-      res.send("Producto Eliminado");
+      await this.service.deleteOneProduct(username, idProduct);
+      res.redirect(`/cart`);
     } catch (err) {
-      res.send("FAILEDD");
+      logger.error("Error Deleting one product");
+    }
+  };
+
+  comprarProduct = async (req, res) => {
+    const username = req.user.username;
+    try {
+      await this.service.deleteAllProductsFromCart(username);
+      res.redirect(`/products`);
+    } catch (err) {
+      logger.error("Error Buying product");
     }
   };
 }
 
 module.exports = { CartController };
-
-// // const name = req.session.passport.user;
-// try {
-//   let products = await listAllProducts();
-//   await res.render("carrito", { products: products });
-// } catch (e) {
-//   httpError(res, e);
-// }

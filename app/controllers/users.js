@@ -21,7 +21,7 @@ class UsersController {
 
   getUser = async (req, res) => {
     const id = req.params.id;
-    console.log(id);
+    // console.log(id);
     try {
       let user = await this.servicio.listOneUser(id);
       res.send(user);
@@ -34,7 +34,7 @@ class UsersController {
     const data = req.body;
     try {
       await this.servicio.createNewUser(data);
-      res.redirect(`http://localhost:${PORT}/login`);
+      res.redirect(`/login`);
     } catch (e) {
       httpError(res, e);
     }

@@ -10,12 +10,29 @@ class ProductsController {
 
   getProducts = async (req, res) => {
     const username = req.user.username;
-    // console.log(username)
+    const name = req.session.passport.user;
+    // console.log(name)
     try {
       let products = await this.servicio.listAllProducts();
-      await res.render("main", {
+      await res.render("mainViewUsers", {
+        // await res.render("admin", {
         products: products,
-        username: username
+        username: username,
+      });
+    } catch (e) {
+      httpError(res, e);
+    }
+  };
+
+  adminAddProduct = async (req, res) => {
+    const username = req.user.username;
+    const name = req.session.passport.user;
+    // console.log(name)
+    try {
+      let products = await this.servicio.listAllProducts();
+      await res.render("admin", {
+        products: products,
+        username: username,
       });
     } catch (e) {
       httpError(res, e);
@@ -26,9 +43,20 @@ class ProductsController {
     const id = req.params.id;
     try {
       let product = await this.servicio.listOneProduct(id);
-      res.send(product);
+      res.render("mainViewUsers", { products: product });
     } catch (err) {
-      res.send("FAILED IN GET PRODUCT BY ID");
+      res.render("404");
+    }
+  };
+
+  getProductCategory = async (req, res) => {
+    const category = req.params.category;
+    try {
+      let product = await this.servicio.listProductsCategory(category);
+      res.render("mainViewUsers", { products: product });
+      // res.send(product);
+    } catch (err) {
+      res.render("404");
     }
   };
 
@@ -37,7 +65,7 @@ class ProductsController {
     // console.log(req.body)
     try {
       await this.servicio.createProducts(data);
-      res.redirect(`http://localhost:${PORT}/products`);
+      res.redirect(`/products`);
     } catch (e) {
       httpError(res, e);
     }
@@ -57,19 +85,3 @@ class ProductsController {
 }
 
 module.exports = { ProductsController };
-
-// getProducts = async (req, res) => {
-//   if (req.session.passport.user) {
-//     try {
-//       let products = await listAllProducts();
-//       await res.render("main", {
-//         products: products,
-//         username: req.session.passport.user,
-//       });
-//     } catch (e) {
-//       httpError(res, e);
-//     }
-//   } else {
-//     res.redirect("http://localhost:8080/login");
-//   }
-// };

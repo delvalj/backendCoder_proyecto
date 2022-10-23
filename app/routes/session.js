@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const routerRegister = Router();
 const passport = require("../middlewares/passport");
-
 const { UsersController } = require("../controllers/login");
 
 class RouterRegister {
@@ -10,11 +9,9 @@ class RouterRegister {
   }
 
   config() {
-    // routerRegister.get("/login", this.controller.getRegister);
     routerRegister.get("/register", this.controller.getRegister);
     routerRegister.get("/errorRegister", this.controller.getErrorRegister);
 
-    // routerSession.get('/:id', getProduct);
     routerRegister.post(
       "/register",
       passport.authenticate("register", {
@@ -26,7 +23,4 @@ class RouterRegister {
     return routerRegister;
   }
 }
-// routerSession.patch('/:id', updateProduct);
-// routerSession.delete('/:id', deleteProduct);
-
 module.exports = RouterRegister;
